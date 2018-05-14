@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/background"
     tools:context=".MainActivity">
 
     <Button
@@ -101,7 +100,6 @@
         android:src="@mipmap/equal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="0.5"
-        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toRightOf="@+id/Add"
         app:layout_constraintRight_toRightOf="parent"
@@ -299,9 +297,8 @@
 
     <EditText
         android:id="@+id/Answer"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
@@ -311,8 +308,7 @@
         android:textSize="48sp"
         app:layout_constraintBottom_toTopOf="@+id/Num9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="1" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/Num9"

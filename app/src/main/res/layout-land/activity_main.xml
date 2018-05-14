@@ -4,8 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/background"
     tools:context=".MainActivity">
+
+
+    <ImageButton
+        android:id="@+id/Num7"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/num_7"
+        android:onClick="ClickNumber"
+        android:scaleType="fitXY"
+        android:src="@mipmap/num7"
+        app:layout_constraintBottom_toTopOf="@+id/Num4"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/Num8"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_weight="1" />
 
     <Button
         android:id="@+id/C"
@@ -20,7 +40,7 @@
         app:layout_constraintLeft_toRightOf="@+id/Num9"
         app:layout_constraintRight_toLeftOf="@+id/CE"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintVertical_weight="1" />
 
@@ -30,7 +50,6 @@
         android:layout_height="0dp"
         android:onClick="CE"
         android:text="@string/ce"
-
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/Div"
         app:layout_constraintDimensionRatio="1"
@@ -38,8 +57,59 @@
         app:layout_constraintLeft_toRightOf="@+id/C"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_weight="1" />
+
+
+    <ImageButton
+        android:id="@+id/Num4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/num_4"
+        android:onClick="ClickNumber"
+        android:scaleType="fitXY"
+        android:src="@mipmap/num4"
+        app:layout_constraintBottom_toTopOf="@+id/Num1"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/Num5"
+        app:layout_constraintTop_toBottomOf="@+id/Num7"
+        app:layout_constraintVertical_weight="1" />
+
+    <ImageButton
+        android:id="@+id/Num5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/num_5"
+        android:onClick="ClickNumber"
+        android:scaleType="fitXY"
+        android:src="@mipmap/num5"
+        app:layout_constraintBottom_toTopOf="@+id/Num2"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/Num4"
+        app:layout_constraintRight_toLeftOf="@+id/Num6"
+        app:layout_constraintTop_toBottomOf="@+id/Num8"
+        app:layout_constraintVertical_weight="1" />
+
+    <ImageButton
+        android:id="@+id/Num6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/num_6"
+        android:onClick="ClickNumber"
+        android:scaleType="fitXY"
+        android:src="@mipmap/num6"
+        app:layout_constraintBottom_toTopOf="@+id/Num3"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/Num5"
+        app:layout_constraintRight_toLeftOf="@+id/Mult"
+        app:layout_constraintTop_toBottomOf="@+id/Num9"
         app:layout_constraintVertical_weight="1" />
 
     <ImageButton
@@ -63,13 +133,16 @@
         android:id="@+id/Div"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:contentDescription="@string/div"
         android:onClick="setOperator"
+
         android:scaleType="fitXY"
         android:src="@mipmap/div"
         app:layout_constraintBottom_toTopOf="@+id/Equal"
         app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toRightOf="@+id/Mult"
         app:layout_constraintTop_toBottomOf="@+id/CE"
@@ -101,7 +174,6 @@
         android:src="@mipmap/equal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="0.5"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toRightOf="@+id/Add"
         app:layout_constraintRight_toRightOf="parent"
@@ -192,75 +264,9 @@
         app:layout_constraintTop_toBottomOf="@+id/Num6"
         app:layout_constraintVertical_weight="1" />
 
-    <ImageButton
-        android:id="@+id/Num4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="@string/num_4"
-        android:onClick="ClickNumber"
-        android:scaleType="fitXY"
-        android:src="@mipmap/num4"
-        app:layout_constraintBottom_toTopOf="@+id/Num1"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/Num5"
-        app:layout_constraintTop_toBottomOf="@+id/Num7"
-        app:layout_constraintVertical_weight="1" />
 
-    <ImageButton
-        android:id="@+id/Num5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="@string/num_5"
-        android:onClick="ClickNumber"
-        android:scaleType="fitXY"
-        android:src="@mipmap/num5"
-        app:layout_constraintBottom_toTopOf="@+id/Num2"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toRightOf="@+id/Num4"
-        app:layout_constraintRight_toLeftOf="@+id/Num6"
-        app:layout_constraintTop_toBottomOf="@+id/Num8"
-        app:layout_constraintVertical_weight="1" />
 
-    <ImageButton
-        android:id="@+id/Num6"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="@string/num_6"
-        android:onClick="ClickNumber"
-        android:scaleType="fitXY"
-        android:src="@mipmap/num6"
-        app:layout_constraintBottom_toTopOf="@+id/Num3"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toRightOf="@+id/Num5"
-        app:layout_constraintRight_toLeftOf="@+id/Mult"
-        app:layout_constraintTop_toBottomOf="@+id/Num9"
-        app:layout_constraintVertical_weight="1" />
 
-    <ImageButton
-        android:id="@+id/Num7"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="@string/num_7"
-        android:onClick="ClickNumber"
-        android:scaleType="fitXY"
-        android:src="@mipmap/num7"
-        app:layout_constraintBottom_toTopOf="@+id/Num4"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/Num8"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintVertical_weight="1" />
 
     <ImageButton
         android:id="@+id/Num8"
@@ -276,7 +282,7 @@
         app:layout_constraintLeft_toRightOf="@+id/Num7"
         app:layout_constraintRight_toLeftOf="@+id/Num9"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintVertical_weight="1" />
 
@@ -297,11 +303,13 @@
         app:layout_constraintTop_toBottomOf="@+id/Add"
         app:layout_constraintVertical_weight="1" />
 
+
     <EditText
         android:id="@+id/Answer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
+        android:layout_height="52dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
         android:gravity="right|center"
         android:inputType="numberDecimal"
@@ -310,7 +318,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Equal"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
@@ -326,7 +334,7 @@
         app:layout_constraintLeft_toRightOf="@+id/Num8"
         app:layout_constraintRight_toLeftOf="@+id/C"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintVertical_weight="1" />
 
