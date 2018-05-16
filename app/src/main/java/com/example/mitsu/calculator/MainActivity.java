@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.util.concurrent.Callable;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,41 +17,47 @@ public class MainActivity extends AppCompatActivity {
     private int Length;
     private int operator;
     private boolean setOperator=false,finishOperate,setOperand;
-    private double x,y,result;
-    EditText Answer;
+    private BigDecimal x,y,result,zero;
+    boolean over;
+    TextView Answer;
     ImageButton N;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Answer = findViewById(R.id.Answer);
-        Answer.setFocusable(false);
         f=true;
         setOperator=false;finishOperate=true;setOperand=false;
-        x=y=result=0;
+        zero=new BigDecimal("0");
+        x=y=result=zero;
         Length=Answer.getText().length();
-
+        over=false;
 
     }
-
-    public void initCalculator(View view){
-        Answer.setFocusable(false);
-        ;f=true;
+    public void initCalculator(){
+        f=true;
         setOperator=false;finishOperate=true;setOperand=false;
-        x=y=result=0;
+        x=y=result=new BigDecimal("0");
         Answer.setText(String.valueOf(0));
         Length=0;
+        over=false;
+    }
+    public void initCalculator(View view){
+        f=true;
+        setOperator=false;finishOperate=true;setOperand=false;
+        x=y=result=new BigDecimal("0");
+        Answer.setText(String.valueOf(0));
+        Length=0;
+        over=false;
     }
 
     public void CE(View view){
-        y=0;
+        y=zero;
         f=true;
         Answer.setText(String.valueOf(0));
     }
 
-    boolean int_num(double a){
-        return a==(int)a;
-    }
+
 
 
     public void ClickNumber(View view) {
@@ -59,31 +67,32 @@ public class MainActivity extends AppCompatActivity {
         String Sans=Answer.getText().toString();
         String SN=N.getContentDescription().toString();
 
-            if (Length < 10) {
-                if (!f) {
-                        if (N.getId() != R.id.Dot||!Sans.contains(".")) {
 
-                            Sans = Sans + SN;
-                            //Toast.makeText(MainActivity.this,Sans, Toast.LENGTH_LONG).show();
-                            Answer.setText(Sans);
-                        }
+                if (!f) {
+                    if ((N.getId() != R.id.Dot || !Sans.contains("."))&&Length < 9) {
+
+                        Sans = Sans + SN;
+                        //Toast.makeText(MainActivity.this,Sans, Toast.LENGTH_LONG).show();
+                        Answer.setText(Sans);
+                    }
 
 
                 } else {
-                    if(N.getId()!=R.id.Dot)Answer.setText(SN);
+                    if (N.getId() != R.id.Dot) Answer.setText(SN);
                     else Answer.setText("0.");
                     //Toast.makeText(MainActivity.this, N.getContentDescription(), Toast.LENGTH_LONG).show();
                     if (N.getId() != R.id.Num0) f = false;
                 }
                 Length = Answer.getText().length();
-            }
-        Sans=Answer.getText().toString();
-            if (!setOperator)
-                x = Double.parseDouble(Sans);
-            else {
-                y = Double.parseDouble(Sans);
-                setOperand = true;
-            }
+
+                Sans = Answer.getText().toString();
+                    if (!setOperator)
+                        x =new BigDecimal(Sans);
+                    else {
+                        y =new BigDecimal(Sans);
+                        setOperand = true;
+                    }
+
     }
 
     public void setOperator(View view){
@@ -102,22 +111,45 @@ public class MainActivity extends AppCompatActivity {
     public void clickEqual(View view){
         Calsulate();
         finishOperate=true;
+        f=true;
     }
 
     public void Calsulate(){
-        if(y==0&&operator==4){
+
+        if(y.compareTo(zero)==0&&operator==4){
             Toast.makeText(MainActivity.this, "エラー", Toast.LENGTH_LONG).show();
         }else {
-            if (operator == 1) result = x + y;
-            if (operator == 2) result = x - y;
-            if (operator == 3) result = x * y;
-            if (operator == 4) result = x / y;
+            //Toast.makeText(MainActivity.this,("x"+String.valueOf(x)+"y"+String.valueOf(y)), Toast.LENGTH_LONG).show();
+            if (operator == 1) result = x.add(y);
+            if (operator == 2) result = x.subtract(y);
+            if (operator == 3) result = x.multiply(y);
+            if (operator == 4) result = x.divide(y,8,BigDecimal.ROUND_HALF_UP);
             x = result;
-            if(int_num(result))Answer.setText(String.valueOf((int)result));
-            else Answer.setText(String.valueOf(result));
+
+            Answer.setText(setR(result));
             setOperator = false;
             setOperand = false;
         }
+    }
+
+    private String setR(BigDecimal result) {
+        String Sresult="0";
+        if(over){
+            Toast.makeText(MainActivity.this, "エラー", Toast.LENGTH_LONG).show();
+            initCalculator();
+        }else {
+
+            int i = result.precision() - result.scale();
+            if (i > 9) {
+                result = result.setScale(-5, BigDecimal.ROUND_HALF_UP);
+                over = true;
+            } else if (result.precision() > 9) {
+                result = result.setScale(9 - i, BigDecimal.ROUND_HALF_UP);
+            }
+            Sresult = result.toString();
+        }
+        return Sresult;
+
     }
 
 
