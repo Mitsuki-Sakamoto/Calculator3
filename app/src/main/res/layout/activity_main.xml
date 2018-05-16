@@ -316,6 +316,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:contentDescription="@string/num_9"
+        android:onClick="ClickNumber"
         android:scaleType="fitXY"
         android:src="@mipmap/num9"
         app:layout_constraintBottom_toTopOf="@+id/Num6"

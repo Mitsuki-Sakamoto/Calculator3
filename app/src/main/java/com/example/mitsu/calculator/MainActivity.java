@@ -11,7 +11,7 @@ import android.widget.Toast;
 import java.util.concurrent.Callable;
 
 public class MainActivity extends AppCompatActivity {
-    private boolean d,f;
+    private boolean f;
     private int Length;
     private int operator;
     private boolean setOperator=false,finishOperate,setOperand;
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Answer = findViewById(R.id.Answer);
         Answer.setFocusable(false);
-        d=false;f=true;
+        f=true;
         setOperator=false;finishOperate=true;setOperand=false;
         x=y=result=0;
         Length=Answer.getText().length();
@@ -34,10 +34,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void initCalculator(View view){
         Answer.setFocusable(false);
-        d=false;f=true;
+        ;f=true;
         setOperator=false;finishOperate=true;setOperand=false;
         x=y=result=0;
-        Answer.setText(String.valueOf(result));
+        Answer.setText(String.valueOf(0));
+        Length=0;
     }
 
     public void CE(View view){
@@ -46,32 +47,43 @@ public class MainActivity extends AppCompatActivity {
         Answer.setText(String.valueOf(0));
     }
 
+    boolean int_num(double a){
+        return a==(int)a;
+    }
+
+
     public void ClickNumber(View view) {
+        double a,b,ans;
         Answer = findViewById(R.id.Answer);
         N = findViewById(view.getId());
-        if (Length < 10) {
-            if (!f) {
-                //Toast.makeText(MainActivity.this,Answer.getText().toString() , Toast.LENGTH_LONG).show();
-                Answer.setText(Answer.getText().toString() + N.getContentDescription().toString());
-            } else if (N.getId() == R.id.Dot) {
-                if (!d) {
-                    Answer.setText(Answer.getText().toString() + N.getContentDescription().toString());
-                    d = true;
-                }
-            } else {
-                Answer.setText(N.getContentDescription());
-                f = false;
-            }
-            Length = Answer.getText().length();
-            Toast.makeText(MainActivity.this, String.valueOf(Answer.getText().length()), Toast.LENGTH_LONG).show();
-        }
-        if(!setOperator)
-            x=Double.parseDouble(Answer.getText().toString());
-        else{
-            y=Double.parseDouble(Answer.getText().toString());
-            setOperand=true;
-        }
+        String Sans=Answer.getText().toString();
+        String SN=N.getContentDescription().toString();
 
+            if (Length < 10) {
+                if (!f) {
+                        if (N.getId() != R.id.Dot||!Sans.contains(".")) {
+
+                            Sans = Sans + SN;
+                            //Toast.makeText(MainActivity.this,Sans, Toast.LENGTH_LONG).show();
+                            Answer.setText(Sans);
+                        }
+
+
+                } else {
+                    if(N.getId()!=R.id.Dot)Answer.setText(SN);
+                    else Answer.setText("0.");
+                    //Toast.makeText(MainActivity.this, N.getContentDescription(), Toast.LENGTH_LONG).show();
+                    if (N.getId() != R.id.Num0) f = false;
+                }
+                Length = Answer.getText().length();
+            }
+        Sans=Answer.getText().toString();
+            if (!setOperator)
+                x = Double.parseDouble(Sans);
+            else {
+                y = Double.parseDouble(Sans);
+                setOperand = true;
+            }
     }
 
     public void setOperator(View view){
@@ -93,15 +105,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Calsulate(){
-        if(operator==1)result=x+y;
-        if(operator==2)result=x-y;
-        if(operator==3)result=x*y;
-        if(operator==4)result=x/y;
-        x=result;
-        Answer.setText(String.valueOf(result));
-        setOperator=false;
-        setOperand=false;
-
+        if(y==0&&operator==4){
+            Toast.makeText(MainActivity.this, "エラー", Toast.LENGTH_LONG).show();
+        }else {
+            if (operator == 1) result = x + y;
+            if (operator == 2) result = x - y;
+            if (operator == 3) result = x * y;
+            if (operator == 4) result = x / y;
+            x = result;
+            if(int_num(result))Answer.setText(String.valueOf((int)result));
+            else Answer.setText(String.valueOf(result));
+            setOperator = false;
+            setOperand = false;
+        }
     }
+
 
 }
