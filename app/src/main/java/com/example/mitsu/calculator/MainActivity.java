@@ -26,26 +26,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Answer = findViewById(R.id.Answer);
-        f=true;
-        setOperator=false;finishOperate=true;setOperand=false;
         zero=new BigDecimal("0");
-        x=y=result=zero;
-        Length=Answer.getText().length();
-        over=false;
-
+        initCalculator();
     }
     public void initCalculator(){
         f=true;
         setOperator=false;finishOperate=true;setOperand=false;
-        x=y=result=new BigDecimal("0");
+        x=y=result=zero;
         Answer.setText(String.valueOf(0));
-        Length=0;
+        Length=Answer.getText().length();
         over=false;
     }
     public void initCalculator(View view){
         f=true;
         setOperator=false;finishOperate=true;setOperand=false;
-        x=y=result=new BigDecimal("0");
+        x=y=result=zero;
         Answer.setText(String.valueOf(0));
         Length=0;
         over=false;
@@ -114,16 +109,17 @@ public class MainActivity extends AppCompatActivity {
         f=true;
     }
 
-    public void Calsulate(){
+    public void Calsulate() {
 
-        if(y.compareTo(zero)==0&&operator==4){
+        if (y.compareTo(zero) == 0 && operator == 4) {
             Toast.makeText(MainActivity.this, "エラー", Toast.LENGTH_LONG).show();
         }else {
             //Toast.makeText(MainActivity.this,("x"+String.valueOf(x)+"y"+String.valueOf(y)), Toast.LENGTH_LONG).show();
             if (operator == 1) result = x.add(y);
             if (operator == 2) result = x.subtract(y);
             if (operator == 3) result = x.multiply(y);
-            if (operator == 4) result = x.divide(y,8,BigDecimal.ROUND_HALF_UP);
+            if (operator == 4) result = x.divide(y, 8, BigDecimal.ROUND_HALF_UP);
+
             x = result;
 
             Answer.setText(setR(result));
@@ -138,18 +134,19 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "エラー", Toast.LENGTH_LONG).show();
             initCalculator();
         }else {
-
             int i = result.precision() - result.scale();
+            int j= result.precision();
             if (i > 9) {
                 result = result.setScale(-5, BigDecimal.ROUND_HALF_UP);
                 over = true;
-            } else if (result.precision() > 9) {
+            } else if (j > 9) {
                 result = result.setScale(9 - i, BigDecimal.ROUND_HALF_UP);
             }
-            Sresult = result.toString();
+            if(result.compareTo(zero)==0) result=zero;
+            if(result.scale()>0)result=result.stripTrailingZeros();
+            else Sresult = result.toString();
         }
         return Sresult;
-
     }
 
 
