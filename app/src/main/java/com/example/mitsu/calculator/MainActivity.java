@@ -1,8 +1,10 @@
 package com.example.mitsu.calculator;
 
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,29 +21,92 @@ public class MainActivity extends AppCompatActivity {
     private boolean isOverflow;
     TextView answer;
     ImageButton button;
+    private boolean isSetOperand;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         answer = findViewById(R.id.answer);
         initCalculator();
+        final ImageButton button0 = findViewById(R.id.num0);
+        button0.setOnClickListener(buttonClick);
+        final ImageButton button1 = findViewById(R.id.num1);
+        button1.setOnClickListener(buttonClick);
+        final ImageButton button2 = findViewById(R.id.num2);
+        button2.setOnClickListener(buttonClick);
+        final ImageButton button3 = findViewById(R.id.num3);
+        button3.setOnClickListener(buttonClick);
+        final ImageButton button4 = findViewById(R.id.num4);
+        button4.setOnClickListener(buttonClick);
+        final ImageButton button5 = findViewById(R.id.num5);
+        button5.setOnClickListener(buttonClick);
+        final ImageButton button6 = findViewById(R.id.num6);
+        button6.setOnClickListener(buttonClick);
+        final ImageButton button7 = findViewById(R.id.num7);
+        button7.setOnClickListener(buttonClick);
+        final ImageButton button8 = findViewById(R.id.num8);
+        button8.setOnClickListener(buttonClick);
+        final ImageButton button9 = findViewById(R.id.num9);
+        button9.setOnClickListener(buttonClick);
+        final ImageButton buttonAdd = findViewById(R.id.add);
+        buttonAdd.setOnClickListener(buttonClick);
+        final ImageButton buttonSub = findViewById(R.id.sub);
+        buttonSub.setOnClickListener(buttonClick);
+        final ImageButton buttonDiv = findViewById(R.id.div);
+        buttonDiv.setOnClickListener(buttonClick);
+        final ImageButton buttonMult = findViewById(R.id.mult);
+        buttonMult.setOnClickListener(buttonClick);
+        final ImageButton buttonDot = findViewById(R.id.dot);
+        final ImageButton buttonEqual = findViewById(R.id.equal);
+        buttonEqual.setOnClickListener(buttonClick);
+        buttonDot.setOnClickListener(buttonClick);
+        final Button buttonClear = findViewById(R.id.clear);
+        buttonClear.setOnClickListener(buttonClick);
+        final Button buttonClearEntry = findViewById(R.id.clearEntry);
+        buttonClearEntry.setOnClickListener(buttonClick);
+
     }
+    private View.OnClickListener buttonClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.clear:
+                    initCalculator();
+                    break;
+                case R.id.clearEntry:
+                    clearEntry();
+                    break;
+                case R.id.add:
+                case R.id.mult:
+                case R.id.div:
+                case R.id.sub:
+                    setOperator(view);
+                    break;
+                case R.id.equal:
+                    clickEqual();
+                    break;
+                default:
+                    clickNumber(view);
+                    break;
+            }
+        }
+    };
+
     public void initCalculator(){
         input=true;
         isSetOperator=false;
         finishOperate=true;
         firstOperator=ZERO;
         secondOperator=ZERO;
+        isSetOperand=false;
         calculationResult=ZERO;
         answer.setText("0");
         length=1;
         isOverflow=false;
     }
-    public void initCalculator(View view){
-        initCalculator();
-    }
 
-    public void clearEntry(View view){
+    public void clearEntry(){
         secondOperator=ZERO;
         input=true;
         answer.setText(String.valueOf(0));
@@ -50,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void ClickNumber(View view) {
+    public void clickNumber(View view) {
         int numberId;
         numberId=view.getId();
         answer = findViewById(R.id.answer);
@@ -94,14 +159,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        if (!input) {
-            if ((numberId != R.id.dot || (!answerString.contains("."))&&length < 9)) {
-                answerString = answerString.concat(numberString);
-                answer.setText(answerString);
-            }
+        if (!input&&(numberId != R.id.dot || (!answerString.contains(".")))&&length < 9) {
+            answerString = answerString.concat(numberString);
+            answer.setText(answerString);
         } else {
-            if (numberId != R.id.dot) answer.setText(numberString);
-            else answer.setText("0.");
+            if (numberId != R.id.dot){
+                answer.setText(numberString);
+            }
+            else{
+                answer.setText("0.");
+            }
             if (numberId != R.id.num0) input = false;
         }
         length = answer.getText().length();
@@ -112,14 +179,14 @@ public class MainActivity extends AppCompatActivity {
             firstOperator =new BigDecimal(answerString);
         else {
             secondOperator =new BigDecimal(answerString);
-            isSetOperator = true;
+            isSetOperand = true;
         }
 
     }
 
     public void setOperator(View view){
-        if(!finishOperate&&isSetOperator){
-            Calculate();
+        if(!finishOperate&&isSetOperand){
+            calculate();
         }
         button = findViewById(view.getId());
         if(button.getId()==R.id.add) operator = 1;
@@ -131,14 +198,13 @@ public class MainActivity extends AppCompatActivity {
         finishOperate=false;
     }
 
-    public void clickEqual(View view){
-        Calculate();
+    public void clickEqual(){
+        calculate();
         finishOperate=true;
         input=true;
     }
 
-    public void Calculate() {
-
+    public void calculate() {
         if (secondOperator.compareTo(ZERO) == 0 && operator == 4) {
             Toast.makeText(MainActivity.this, "#DIV/0!", Toast.LENGTH_LONG).show();
         }else {
@@ -152,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
 
             answer.setText(setResultString(calculationResult));
             isSetOperator = false;
+            isSetOperand = false;
         }
     }
 
