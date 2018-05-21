@@ -1,6 +1,6 @@
 package com.example.mitsu.calculator;
 
-import android.media.Image;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import java.math.BigDecimal;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     private boolean input;
     private int length;
     private int operator;
@@ -22,45 +22,23 @@ public class MainActivity extends AppCompatActivity {
     TextView answer;
     ImageButton button;
     private boolean isSetOperand;
+    private final String[] str= {"num0","num1","num2","num3","num4","num5","num6","num7","num8","num9","add","sub","equal","mult","div","dot"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+      super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         answer = findViewById(R.id.answer);
         initCalculator();
-        final ImageButton button0 = findViewById(R.id.num0);
-        button0.setOnClickListener(buttonClick);
-        final ImageButton button1 = findViewById(R.id.num1);
-        button1.setOnClickListener(buttonClick);
-        final ImageButton button2 = findViewById(R.id.num2);
-        button2.setOnClickListener(buttonClick);
-        final ImageButton button3 = findViewById(R.id.num3);
-        button3.setOnClickListener(buttonClick);
-        final ImageButton button4 = findViewById(R.id.num4);
-        button4.setOnClickListener(buttonClick);
-        final ImageButton button5 = findViewById(R.id.num5);
-        button5.setOnClickListener(buttonClick);
-        final ImageButton button6 = findViewById(R.id.num6);
-        button6.setOnClickListener(buttonClick);
-        final ImageButton button7 = findViewById(R.id.num7);
-        button7.setOnClickListener(buttonClick);
-        final ImageButton button8 = findViewById(R.id.num8);
-        button8.setOnClickListener(buttonClick);
-        final ImageButton button9 = findViewById(R.id.num9);
-        button9.setOnClickListener(buttonClick);
-        final ImageButton buttonAdd = findViewById(R.id.add);
-        buttonAdd.setOnClickListener(buttonClick);
-        final ImageButton buttonSub = findViewById(R.id.sub);
-        buttonSub.setOnClickListener(buttonClick);
-        final ImageButton buttonDiv = findViewById(R.id.div);
-        buttonDiv.setOnClickListener(buttonClick);
-        final ImageButton buttonMult = findViewById(R.id.mult);
-        buttonMult.setOnClickListener(buttonClick);
-        final ImageButton buttonDot = findViewById(R.id.dot);
-        final ImageButton buttonEqual = findViewById(R.id.equal);
-        buttonEqual.setOnClickListener(buttonClick);
-        buttonDot.setOnClickListener(buttonClick);
+
+        int viewId;
+        ImageButton imageButton;
+        Resources res = getResources();
+        for(int i = 0; i < str.length; i++){
+            viewId = res.getIdentifier(str[i], "id", getPackageName());
+            imageButton = (ImageButton)findViewById(viewId);
+            imageButton.setOnClickListener(buttonClick);
+        }
         final Button buttonClear = findViewById(R.id.clear);
         buttonClear.setOnClickListener(buttonClick);
         final Button buttonClearEntry = findViewById(R.id.clearEntry);
